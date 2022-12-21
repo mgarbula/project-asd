@@ -11,18 +11,10 @@ class Window extends MainFrame {
   contents = new BorderPanel {
     add(new Label("Tu będzie drzewo"), BorderPanel.Position.Center)
     val menuPanel:BorderPanel = new BorderPanel {
-      add(new AddMenu, BorderPanel.Position.North)
-      add(new RemoveMenu, BorderPanel.Position.South)
+      add(new Menu, BorderPanel.Position.Center)
     }
     add(menuPanel, BorderPanel.Position.East)
   }
-  //pack()
   centerOnScreen()
   open()
-}
-
-object Main {
-  def main(args: Array[String]): Unit = {
-    new Window()
-  }
 }
