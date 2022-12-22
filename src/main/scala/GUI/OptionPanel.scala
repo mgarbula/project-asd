@@ -1,20 +1,24 @@
 package GUI
 
-import GUI.Operations.doOperation
+import GUI.Operations.{doOperation, preorder}
 import tree.Tree
 import tree.Tree.Empty
 
 import scala.swing.{BorderPanel, Button, FlowPanel, Label, TextArea}
 import scala.swing.event.ButtonClicked
 
-class Menu extends BorderPanel {
+class Menu(treePre: Label) extends BorderPanel {
   var tree:Tree = Empty
 
   val addOption:OptionPanel = new OptionPanel {
     override val operation = 1
     override val btn: Button = new Button("Dodaj") {
       reactions += {
-        case ButtonClicked(_) => tree = doOperation(operation, tree, txt.text.toInt); txt.text = ""
+        case ButtonClicked(_) => {
+          tree = doOperation(operation, tree, txt.text.toInt)
+          txt.text = ""
+          treePre.text = preorder(tree).toString()
+        }
       }
     }
 
@@ -27,7 +31,11 @@ class Menu extends BorderPanel {
     override val operation = 2
     override val btn: Button = new Button("Usun") {
       reactions += {
-        case ButtonClicked(_) => tree = doOperation(operation, tree, txt.text.toInt); txt.text = ""
+        case ButtonClicked(_) => {
+          tree = doOperation(operation, tree, txt.text.toInt);
+          txt.text = ""
+          treePre.text = preorder(tree).toString()
+        }
       }
     }
 
@@ -37,7 +45,7 @@ class Menu extends BorderPanel {
   }
 
   add(addOption, BorderPanel.Position.North)
-  add(removeOption, BorderPanel.Position.South)
+  add(removeOption, BorderPanel.Position.Center)
 }
 
 trait OptionPanel extends FlowPanel {
