@@ -14,16 +14,16 @@ class Window extends MainFrame {
     maximumSize = mySize
     preferredSize = mySize
 
-    val menuPanel:BorderPanel = new BorderPanel {
-      add(new Menu(treePre), BorderPanel.Position.Center)
-    }
-    add(menuPanel, BorderPanel.Position.North)
-
     val treePre:Label = new Label("-----------------")
     add(treePre, BorderPanel.Position.Center)
 
-    val directionLabel:Label = new Label("-----------------")
+    val directionLabel:DirectionLabel = new DirectionLabel("-----------------")
     add(directionLabel, BorderPanel.Position.South)
+
+    val menuPanel:BorderPanel = new BorderPanel {
+      add(new Menu(treePre, directionLabel), BorderPanel.Position.Center)
+    }
+    add(menuPanel, BorderPanel.Position.North)
   }
   centerOnScreen()
   open()
