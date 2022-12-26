@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities
 import scala.swing.{BorderPanel, Button, FlowPanel, Label, TextArea}
 import scala.swing.event.ButtonClicked
 
-class Menu(treePre: Label, directionLabel: DirectionLabel) extends BorderPanel {
+class Menu(treePrinter: TreePrinter, directionLabel: DirectionLabel) extends BorderPanel {
   var tree:Tree = Empty
 
   val addOption:OptionPanel = new OptionPanel {
@@ -21,7 +21,8 @@ class Menu(treePre: Label, directionLabel: DirectionLabel) extends BorderPanel {
             myThread.start()
             tree = doOperation(operation, tree, txt.text.toInt)
             txt.text = ""
-            treePre.text = preorder(tree).toString()
+            //treePre.text = preorder(tree).toString()
+            treePrinter.printTree(tree)
           })
 
       }
@@ -39,7 +40,8 @@ class Menu(treePre: Label, directionLabel: DirectionLabel) extends BorderPanel {
         case ButtonClicked(_) =>
           tree = doOperation(operation, tree, txt.text.toInt)
           txt.text = ""
-          treePre.text = preorder(tree).toString()
+          //treePre.text = preorder(tree).toString()
+          treePrinter.printTree(tree)
       }
     }
 

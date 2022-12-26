@@ -1,6 +1,5 @@
 package tree
 
-import GUI.DirectionLabel
 import tree.Tree._
 
 class BST {
