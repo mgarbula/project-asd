@@ -4,6 +4,7 @@ import GUI.Operations.{doOperation, preorder}
 import tree.Tree
 import tree.Tree.Empty
 
+import javax.swing.SwingUtilities
 import scala.swing.{BorderPanel, Button, FlowPanel, Label, TextArea}
 import scala.swing.event.ButtonClicked
 
@@ -15,9 +16,14 @@ class Menu(treePre: Label, directionLabel: DirectionLabel) extends BorderPanel {
     override val btn: Button = new Button("Dodaj") {
       reactions += {
         case ButtonClicked(_) =>
-          tree = doOperation(operation, tree, txt.text.toInt, directionLabel)
-          txt.text = ""
-          treePre.text = preorder(tree).toString()
+          SwingUtilities.invokeLater(() => {
+            val myThread = new MyThread(directionLabel, txt.text.toInt, tree, btn)
+            myThread.start()
+            tree = doOperation(operation, tree, txt.text.toInt)
+            txt.text = ""
+            treePre.text = preorder(tree).toString()
+          })
+
       }
     }
 
@@ -31,7 +37,7 @@ class Menu(treePre: Label, directionLabel: DirectionLabel) extends BorderPanel {
     override val btn: Button = new Button("Usun") {
       reactions += {
         case ButtonClicked(_) =>
-          tree = doOperation(operation, tree, txt.text.toInt, directionLabel)
+          tree = doOperation(operation, tree, txt.text.toInt)
           txt.text = ""
           treePre.text = preorder(tree).toString()
       }

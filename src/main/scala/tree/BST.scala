@@ -4,16 +4,10 @@ import GUI.DirectionLabel
 import tree.Tree._
 
 class BST {
-  def insert(t: Tree, elem: Int, directionLabel: DirectionLabel): Tree = t match {
-    case Empty => directionLabel.printDirection(elem, _, 'm'); Node(elem, Empty, Empty)
-    case Node(a, l, r) => if (elem <= a) {
-                            directionLabel.printDirection(elem, a, 'l')
-                            println(a)
-                            Node(a, insert(l, elem, directionLabel), r)
-                          } else {
-                            directionLabel.printDirection(elem, a, 'r')
-                            Node(a, l, insert(r, elem, directionLabel))
-                          }
+  def insert(t: Tree, elem: Int): Tree = t match {
+    case Empty => Node(elem, Empty, Empty)
+    case Node(a, l, r) => if (elem <= a) Node(a, insert(l, elem), r)
+                          else Node(a, l, insert(r, elem))
   }
 
   def preorder(t: Tree): List[Int] = t match {
