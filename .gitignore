@@ -2,12 +2,12 @@
 /shelf/
 /.idea/workspace.xml
 
-../*.class
-../*.log
-../*.iml
-../*.ipr
-../*.iws
-../.idea/
-../.out/
+*.class
+*.log
+*.iml
+*.ipr
+*.iws
+.idea/
+.out/
 
-../target/
+target/
