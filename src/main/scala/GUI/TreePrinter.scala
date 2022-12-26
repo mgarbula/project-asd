@@ -12,7 +12,7 @@ class TreePrinter extends TextArea {
   def printTree(tree: Tree): Unit = {
     //text = "\t\t\t\t\t\t\t\t\t\t"
     //printSpaces(spacesInFront)
-    //text = ""
+    text = ""
     println("================================")
     //spacesInFront = 15
     makeTree(List(tree), 1, treeSize(tree))
@@ -32,7 +32,7 @@ class TreePrinter extends TextArea {
     printSpaces(spacesInFront)
     val newTrees = tree.flatMap(t => List(left(t), right(t)))
     tree.foreach(t => printElem(t, betweenSpaces))
-    //text += "\n"
+    text += "\n"
     println("")
 
     printSlashes(slashes, tree, spacesInFront)
@@ -50,8 +50,8 @@ class TreePrinter extends TextArea {
 
 
   private def printElem(t: Tree, spaces: Int): Unit = t match {
-    case Empty => /*text += " ";*/ println(""); printSpaces(spaces)
-    case Node(a, _, _) => /*text += a;*/ print(a); printSpaces(spaces)
+    case Empty => text += " "; print(" "); printSpaces(spaces)
+    case Node(a, _, _) => text += a; print(a); printSpaces(spaces)
   }
 
   private def printSlashes(slashes: Int, tree: List[Tree], firstSpaces: Int): Unit = {
@@ -59,7 +59,7 @@ class TreePrinter extends TextArea {
       case Empty => printSpaces(slashes + slashes + i + 1)
       case Node(_, l, r) => {
         leftSlash(l)
-        printSpaces(i + i -1)
+        printSpaces(i + i - 1)
         rightSlash(r)
         printSpaces(slashes + slashes - 1)
       }
@@ -70,27 +70,27 @@ class TreePrinter extends TextArea {
         printSpaces(firstSpaces - i)
         printSlashes(tree(j), i)
       }
-      //text += "\n"
+      text += "\n"
       println("")
     }
     //spacesInFront -= 2
   }
 
   private def leftSlash(t: Tree): Unit = t match {
-    case Empty => print(" ") //text += " "
-    case _ => print("/") //text += "/"
+    case Empty => print(" "); text += " "
+    case _ => print("/"); text += "/"
   }
 
   private def rightSlash(t: Tree): Unit = t match {
-    case Empty => print(" "); //text += " "
-    case _ => print("\\") //text += "\\"
+    case Empty => print(" "); text += " "
+    case _ => print("\\"); text += "\\"
   }
 
 
   private def printSpaces(spaces: Int): Unit = spaces match {
-    case -1 => print("") //text += ""
-    case 0 => print("") //text += ""
-    case _ => /*text += " ";*/ print(" "); printSpaces(spaces - 1)
+    case -1 => print(""); text += ""
+    case 0 => print(""); text += ""
+    case _ => text += " "; print(" "); printSpaces(spaces - 1)
   }
 
   private def treeSize(tree: Tree): Int = tree match {
