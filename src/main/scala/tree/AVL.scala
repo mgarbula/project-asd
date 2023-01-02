@@ -16,6 +16,27 @@ class AVL {
     }
   }
 
+  def delete(t: Tree, elem: Int): Tree = t match {
+    case Empty => t
+    case Node(a, _, _, _) if a == elem => new BST().deleteElem(t)
+    case Node(a, h, l, r) if elem < a  => {
+      rotateDelete(a, delete(left(t), elem), r)
+    }
+    case Node(a, _, l, r) if elem > a  => {
+      rotateDelete(a, l, delete(right(t), elem))
+    }
+  }
+
+  def rotateDelete(a: Int, l: Tree, r: Tree): Tree = {
+    val newTree = Node(a, Math.max(height(r), height(l)) + 1, l, r)
+    val balance = getBalance(newTree)
+    if (balance > 1 && getBalance(right(newTree)) >= 0) rotateLeft(newTree)
+    else if (balance > 1 && getBalance(right(newTree)) < 0) rotateRight(Node(Tree.elem(newTree), height(newTree), rotateLeft(left(newTree)), right(newTree)))
+    else if (balance < -1 && getBalance(left(newTree)) <= 0) rotateRight(newTree)
+    else if (balance < -1 && getBalance(left(newTree)) > 0) rotateLeft(Node(Tree.elem(newTree), height(newTree), left(newTree), rotateRight(right(newTree))))
+    else newTree
+  }
+
   def rotateInsert(t: Tree, balance: Int, elem: Int): Tree = {
     if (balance > 1 && elem > Tree.elem(right(t))) rotateLeft(t)
     else if (balance < -1 && elem < Tree.elem(left(t))) rotateRight(t)
@@ -43,13 +64,13 @@ class AVL {
 
   def rotateLeft(t: Tree): Tree = {
     val newRoot = elem(right(t))
-    val newLeftChild = Node(elem(t), Math.max(height(left(t)) + 1, height(right(left(t)))), left(t), left(right(t)))
+    val newLeftChild = Node(elem(t), Math.max(height(left(t)), height(left(right(t)))) + 1, left(t), left(right(t)))
     Node(newRoot, Math.max(height(newLeftChild), height(right(right(t)))) + 1, newLeftChild, right(right(t)))
   }
 
   def rotateRight(t: Tree): Tree = {
-    val newRoot = elem(left(t))
-    val newRightChild = Node(elem(t), Math.max(height(right(t)) + 1, height(left(right(t)))), right(left(t)), right(t))
+    val newRoot =   elem(left(t))
+    val newRightChild = Node(elem(t), Math.max(height(right(t)), height(right(left(t)))) + 1, right(left(t)), right(t))
     Node(newRoot, Math.max(height(newRightChild), height(left(left(t)))) + 1, left(left(t)), newRightChild)
   }
 }
