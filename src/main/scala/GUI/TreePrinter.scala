@@ -1,20 +1,17 @@
 package GUI
 
 import tree.Tree
-import tree.Tree.{Empty, Node, elem, left, right}
+import tree.Tree.{Empty, Node, left, right}
 
 import scala.swing.TextArea
 
 class TreePrinter extends TextArea {
-  //var spacesInFront = 40
   tabSize = 1
 
   def printTree(tree: Tree): Unit = {
-    //text = "\t\t\t\t\t\t\t\t\t\t"
-    //printSpaces(spacesInFront)
     text = ""
     println("================================")
-    //spacesInFront = 15
+    println(tree)
     makeTree(List(tree), 1, treeSize(tree))
   }
 
@@ -26,8 +23,6 @@ class TreePrinter extends TextArea {
     val slashes = Math.pow(2, Math.max (floor - 1, 0) ).toInt
     val spacesInFront = (Math.pow(2, floor) - 1).toInt
     val betweenSpaces = (Math.pow(2, floor + 1) - 1).toInt
-    //val betweenSlashes = (Math.pow(2, floor + 1) - 1).toInt
-    //println("betweenSpaces = " + betweenSpaces)
 
     printSpaces(spacesInFront)
     val newTrees = tree.flatMap(t => List(left(t), right(t)))
@@ -36,7 +31,6 @@ class TreePrinter extends TextArea {
     println("")
 
     printSlashes(slashes, tree, spacesInFront)
-    //spacesInFront -= 1
     makeTree(newTrees, currentLevel + 1, levels)
   }
 
@@ -73,7 +67,6 @@ class TreePrinter extends TextArea {
       text += "\n"
       println("")
     }
-    //spacesInFront -= 2
   }
 
   private def leftSlash(t: Tree): Unit = t match {

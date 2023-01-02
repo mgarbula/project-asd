@@ -26,7 +26,24 @@ object TestAVL {
     /*t = avl.insert(t, 6)
     t = avl.insert(t, 5)
     t = avl.insert(t, 4)*/
+
     t = avl.insert(t, 5)
+    t = avl.insert(t, 0)
+    t = avl.insert(t, 6)
+    t = avl.insert(t, -1)
+    t = avl.insert(t, 1)
+    t = avl.insert(t, 2)
+    println("tree " + t)
+    println("preorder " + avl.preorder(t))
+    println("inorder " + avl.inorder(t))
+
+    t = avl.delete(t, -1)
+    t = avl.delete(t, 0)
+    println("tree " + t)
+    println("preorder " + avl.preorder(t))
+    println("inorder " + avl.inorder(t))
+
+    /*t = avl.insert(t, 5)
     t = avl.insert(t, 0)
     t = avl.insert(t, 8)
     t = avl.insert(t, 9)
@@ -34,6 +51,18 @@ object TestAVL {
     t = avl.insert(t, 6)
     println("preorder " + avl.preorder(t))
     println("inorder " + avl.inorder(t))
+    t = avl.delete(t, 9)
+    t = avl.delete(t, 8)
+    println("t " + t)
+    println("preorder " + avl.preorder(t))
+    println("inorder " + avl.inorder(t))*/
+
+    /*t = avl.insert(t, 7)
+    t = avl.insert(t, 5)
+    t = avl.insert(t, 0)
+    t = avl.insert(t, 6)
+    println("preorder " + avl.preorder(t))
+    println("inorder " + avl.inorder(t))*/
 
     /*t = avl.delete(t, 10)
     println("preorder " + avl.preorder(t))
