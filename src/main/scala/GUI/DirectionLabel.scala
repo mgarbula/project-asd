@@ -23,7 +23,7 @@ class DirectionLabel(txt: String) extends Label {
       printDirection(elem, -1, 'm')
       btn.enabled = true
     }
-    case Node(a, l, r) => btn.enabled = false; if (elem <= a) {
+    case Node(a, _, l, r) => btn.enabled = false; if (elem <= a) {
       printAndSleep(elem, a, 'l', l, btn)
     } else {
       printAndSleep(elem, a, 'r', r, btn)

@@ -51,13 +51,13 @@ class TreePrinter extends TextArea {
 
   private def printElem(t: Tree, spaces: Int): Unit = t match {
     case Empty => text += " "; print(" "); printSpaces(spaces)
-    case Node(a, _, _) => text += a; print(a); printSpaces(spaces)
+    case Node(a, _, _, _) => text += a; print(a); printSpaces(spaces)
   }
 
   private def printSlashes(slashes: Int, tree: List[Tree], firstSpaces: Int): Unit = {
     def printSlashes(t: Tree, i: Int): Unit = t match {
       case Empty => printSpaces(slashes + slashes + i + 1)
-      case Node(_, l, r) => {
+      case Node(_, _, l, r) => {
         leftSlash(l)
         printSpaces(i + i - 1)
         rightSlash(r)
@@ -95,8 +95,8 @@ class TreePrinter extends TextArea {
 
   private def treeSize(tree: Tree): Int = tree match {
     case Empty => 0
-    case Node(_, Empty, Empty) => 1
-    case Node(_, l, r) => 1 + Math.max(treeSize(l), treeSize(r))
+    case Node(_, _, Empty, Empty) => 1
+    case Node(_, _, l, r) => 1 + Math.max(treeSize(l), treeSize(r))
   }
 
 }
