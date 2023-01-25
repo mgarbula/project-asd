@@ -20,24 +20,27 @@ class AVL {
     case Empty => t
     case Node(a, _, _, _) if a == elem => new BST().deleteElem(t)
     case Node(a, h, l, r) if elem < a  => {
-      rotateDelete(a, delete(left(t), elem), r)
+      rotateDelete(Node(a, h, rotateDelete(delete(l, elem)), r))
     }
-    case Node(a, _, l, r) if elem > a  => {
-      rotateDelete(a, l, delete(right(t), elem))
+    case Node(a, h, l, r) if elem > a  => {
+      rotateDelete(Node(a, h, l, rotateDelete(delete(r, elem))))
     }
   }
 
-  def rotateDelete(a: Int, l: Tree, r: Tree): Tree = {
-    val newTree = Node(a, Math.max(height(r), height(l)) + 1, l, r)
-    val balance = getBalance(newTree)
-    if (balance > 1 && getBalance(right(newTree)) >= 0) rotateLeft(newTree)
-    else if (balance > 1 && getBalance(right(newTree)) < 0) rotateRight(Node(Tree.elem(newTree), height(newTree), rotateLeft(left(newTree)), right(newTree)))
-    else if (balance < -1 && getBalance(left(newTree)) <= 0) rotateRight(newTree)
-    else if (balance < -1 && getBalance(left(newTree)) > 0) rotateLeft(Node(Tree.elem(newTree), height(newTree), left(newTree), rotateRight(right(newTree))))
-    else newTree
+  def rotateDelete(t: Tree): Tree = t match {
+    case Empty => Empty
+    case Node(_, _, _, _) => {
+      val newTree = Node (elem (t), Math.max (height (right (t) ), height (left (t) ) ) + 1, left (t), right (t) )
+      val balance = getBalance (newTree)
+      if (balance > 1 && getBalance (right (newTree) ) >= 0) rotateLeft (newTree)
+      else if (balance > 1 && getBalance (right (newTree) ) < 0) rotateRight (Node (Tree.elem (newTree), height (newTree), rotateLeft (left (newTree) ), right (newTree) ) )
+      else if (balance < - 1 && getBalance (left (newTree) ) <= 0) rotateRight (newTree)
+      else if (balance < - 1 && getBalance (left (newTree) ) > 0) rotateLeft (Node (Tree.elem (newTree), height (newTree), left (newTree), rotateRight (right (newTree) ) ) )
+      else newTree
+    }
   }
 
-  def rotateInsert(t: Tree, balance: Int, elem: Int): Tree = {
+    def rotateInsert(t: Tree, balance: Int, elem: Int): Tree = {
     if (balance > 1 && elem > Tree.elem(right(t))) rotateLeft(t)
     else if (balance < -1 && elem < Tree.elem(left(t))) rotateRight(t)
     else if (balance > 1 && elem < Tree.elem(right(t))) rotateLeft(Node(Tree.elem(t), height(t), left(t), rotateRight(right(t))))

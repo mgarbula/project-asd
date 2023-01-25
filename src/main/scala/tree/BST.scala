@@ -25,7 +25,6 @@ class BST {
   }
 
   def maxElem(t: Tree): Int = t match {
-    case Empty => -1
     case Node(a, _, _, Empty) => a
     case Node(_, _, _, r)     => maxElem(r)
   }
