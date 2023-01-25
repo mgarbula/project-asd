@@ -32,7 +32,7 @@ class AVL {
     case Node(_, _, _, _) => {
       val newTree = Node (elem (t), Math.max (height (right (t) ), height (left (t) ) ) + 1, left (t), right (t) )
       val balance = getBalance (newTree)
-      if (balance > 1 && getBalance (right (newTree) ) == 0) rotateLeft(newTree)
+      if (balance > 1 && getBalance (right (newTree) ) >= 0) rotateLeft(newTree)
       else if (balance > 1 && getBalance (right (newTree) ) < 0) rotateLeft(Node (Tree.elem(newTree), height(newTree), left(newTree), rotateRight(right(newTree))))
       else if (balance < - 1 && getBalance (left (newTree) ) <= 0) rotateRight(newTree)
       else if (balance < - 1 && getBalance (left (newTree) ) > 0) rotateRight(Node(Tree.elem(newTree), height(newTree), rotateLeft(left(newTree)), right(newTree)))
