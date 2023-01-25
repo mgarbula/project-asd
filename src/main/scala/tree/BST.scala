@@ -29,19 +29,7 @@ class BST {
     case Node(a, _, _, Empty) => a
     case Node(_, _, _, r)     => maxElem(r)
   }
-
-  def minTree(t: Tree): Tree = t match {
-    case Node(_, _, Empty, r)               => r
-    case Node(a, h, Node(b, _, Empty, r1), r2) => Node(a, h, r1, r2)
-    case Node(_, _, Node(b, h, l, r1), r2)     => minTree(Node(b, h, l, r1))
-  }
-
-  def maxTree(t: Tree): Tree = t match {
-    case Node(a, _, l, Empty)               => l
-    case Node(a, h, l1, Node(b, _, l2, Empty)) => Node(a, h, l1, Empty)
-    case Node(_, _, l1, Node(b, h, l2, r))     => maxTree(Node(b, h, l2, r))
-  }
-
+  
   def makeElemEmpty(t: Tree, elem: Int): Tree = t match {
     case Empty => Empty
     case Node(a, _, l, r) if a == elem => l
@@ -50,8 +38,8 @@ class BST {
 
   def deleteElem(t: Tree): Tree = t match {
     case Node(_, _, Empty, Empty)       => Empty
-    case Node(_, _, Empty, r)           => Node(minElem(r), 0, Empty, minTree(r))
-    case Node(_, _, l, Empty)           => Node(maxElem(l), 0, maxTree(l), Empty)
+    case Node(_, _, Empty, r)           => Node(minElem(r), 0, Empty, delete(r, minElem(r)))
+    case Node(_, _, l, Empty)           => Node(maxElem(l), 0, delete(l, maxElem(l)), Empty)
     case Node(_, _, l, r) => {
       val maxiElem = maxElem(l)
       Node(maxiElem, 0, makeElemEmpty(l, maxiElem), r)
